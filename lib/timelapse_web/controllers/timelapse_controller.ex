@@ -39,12 +39,12 @@ defmodule TimelapseWeb.TimelapseController do
               {:error, %Ecto.Changeset{} = changeset} ->
                 conn
                 |> put_flash(:error, "Video not created.")
-                |> redirect(to: timelapse_path(conn, :index))
+                |> redirect(to: "/timelapse")
             end
           {:error, %Ecto.Changeset{} = changeset} ->
             conn
             |> put_flash(:error, "Video not created.")
-            |> redirect(to: timelapse_path(conn, :index))
+            |> redirect(to: "/timelapse")
         end
       {:error, error} ->
         Logger.info "[call] [#{inspect error}]"

@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["target", {
+      "presets": ["latest"],
+      "targets": [
+        {"name": "ios", "version": 7}
+      ]
+    }]
+  ]
+}

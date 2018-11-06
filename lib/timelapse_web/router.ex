@@ -31,10 +31,13 @@ defmodule TimelapseWeb.Router do
   scope "/", TimelapseWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
-    resources "/timelapse", TimelapseController
+    get "/timelapse", RooterController, :main
     resources "/sessions", SessionController, only: [:delete]
     resources "/videos", VideoController
     get "/watch/:id", WatchController, :show
+    get "/messages", RooterController, :main
+    get "/gallery", RooterController, :main
+    get "/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
