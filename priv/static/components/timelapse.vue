@@ -114,15 +114,16 @@
 </template>
 
 <script>
-
 import Vue from 'vue'
 import App from './App.vue'
+const app = new Vue(App)
 import Datepicker from 'vuejs-datepicker'
 
 export default {
   name: 'timelapse',
   components: {
     Datepicker
+    
   },
   data: function() {
     return{

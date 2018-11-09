@@ -1,75 +1,66 @@
 <template>
-	<body id="app">
-    <!-- begin:: Page -->
-        <div id="page_content_main">
-            <!-- BEGIN: Header -->
-            <header data-minimize-offset="200" data-minimize-mobile-offset="200" >
-				<div>
-				    <div>
-				        <!-- BEGIN: Brand -->
-				        <div>
-				            <div>
-				                <div>
-				                     <a href="javascript:;">
-				                        <img alt="" src="https://evercam.io/wp-content/uploads/2016/07/Favicon-150.png" />
-				                    </a>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
+	<span>
+		<header class="app-header navbar">
+			<button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <a class="navbar-brand" href="#">
+	      <img class="navbar-brand-full" src="/images/evercam-logo-2.png" width="110" height="25" alt="Evercam Logo">
+	      <img class="navbar-brand-minimized" src="/images/Favicon-300.png" width="30" height="30" alt="Evercam Logo">
+	    </a>
+	    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <ul class="nav navbar-nav ml-auto">
+	      <li class="nav-item dropdown">
+	        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+	          <img class="img-avatar" src="/images/avatar.png" alt="javier@evercam.io">
+	        </a>
+	        <div class="dropdown-menu dropdown-menu-right">
+	          <div class="dropdown-header text-center">
+	            <strong>Account</strong>
+	          </div>
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href="/session">
+	            <i class="fa fa-lock"></i> Logout</a>
+	        </div>
+	      </li>
+	    </ul>
+	  </header>
+		<div class="app-body">
+			<div class="sidebar">
+				<nav class="sidebar-nav">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link" href="/timelapse">
+								<i class="nav-icon fa fa-tachometer"></i> Dashboard
+							</a>
+						</li>
+						<li class="nav-title">Timelapse</li>
+						<li class="nav-item">
+							<router-link class="nav-link" v-bind:to="'/timelapse'">
+								<i class="nav-icon icon-drop fa fa-clock-o"></i>
+								Timelapse
+							</router-link>
+						</li>
+						<li class="nav-item">
+							<router-link class="nav-link" v-bind:to="'/gallery'">
+								<i class="nav-icon icon-drop fa fa-video-camera"></i>
+								Gallery
+							</router-link>
+						</li>
+					</ul>
+				</nav>
+				<button class="sidebar-minimizer brand-minimizer" type="button"></button>
+			</div>
+			<main id="app" class="main">
+				<div id="remote_data">
+					<notifications group="notify" />
+					<router-view></router-view>
 				</div>
-			</header>
-        <div>
-				<div id="m_aside_left">
-				  <!-- BEGIN: Aside Menu -->
-				  <div id="m_ver_menu" data-menu-vertical="true" data-menu-scrollable="false" data-menu-dropdown-timeout="500">
-				     <ul>
-				         <li>
-									<router-link v-bind:to="'/timelapse'">
-										<i class="fa fa-newspaper-o"></i>
-										<span>Timelapse</span>
-									</router-link>
-				        </li>
-				        <li>
-									<router-link v-bind:to="'/gallery'">
-										<i class="fas fa-file-video"></i>
-										<span>Gallery</span>
-									</router-link>
-				        </li>
-				    </ul>
-				    <ul>
-				        <li>
-				            <a  href="/session">
-				                <i class="fa fa-power-off"></i>
-				                <span>
-				                    <span>
-				                        <span>
-				                            Logout
-				                        </span>
-				                    </span>
-				                </span>
-				            </a>
-				        </li>
-				    </ul>
-				  </div>
-				  <!-- END: Aside Menu -->
-				</div>
-                <!-- END: Left Aside -->
-                <div id="remote_data">
-									<notifications group="notify" />
-									<router-view></router-view>
-                </div>
-            </div>
-        </div>
-            <!-- end:: Body -->
-        <!-- begin::Scroll Top -->
-        <div data-scroll-offset="500" data-scroll-speed="300">
-            <i class="la la-arrow-up"></i>
-        </div>
-        <!-- end::Scroll Top -->
-    </div>
-    <!-- end:: Page -->
-</body>
+			</main>
+		</div>
+	</span>
 </template>
 
 <script>

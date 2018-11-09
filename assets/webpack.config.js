@@ -21,7 +21,17 @@ module.exports = {
           })
         }
       },
-      {test: /\.scss?$/, loaders: ['style-loader', 'css-loader', 'sass-loader']},
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -69,7 +79,7 @@ module.exports = {
     new ExtractTextPlugin("../css/app.css"),
     new CopyWebpackPlugin(
       [
-        { from: 'static/', to: '../' },
+        { from: './static/assets', to: '../' },
         {
           context: "./node_modules/font-awesome/fonts",
           from: "*",

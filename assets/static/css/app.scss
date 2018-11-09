@@ -3,6 +3,8 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
+@import "~@coreui/coreui/scss/coreui";
+@import '~video.js/dist/video-js.css';
 
 //Write your main scss here or just import a framework
 
@@ -12,9 +14,40 @@
 }
 
 body {
-    margin: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 17px;
+}
+
+.page_content {
+  padding-top: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#video-player {
+  video {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+.logout {
+  float: right;
+}
+
+#collapseExample {
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.container-fluid {
+  padding: 30px;
+}
+
+#app {
+  height:100%;
 }
 
 #myVideo {

@@ -16,10 +16,12 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import Notifications from 'vue-notification'
+import VueVideoPlayer from 'vue-video-player'
 import "jquery/dist/jquery"
 import "popper.js"
 import "bootstrap/dist/js/bootstrap"
 import css from "../css/app.scss"
+import "@coreui/coreui/dist/js/coreui"
 
 // Import local files
 //
@@ -33,11 +35,13 @@ import css from "../css/app.scss"
 import App from "../components/App"
 import timelapse from "../components/timelapse"
 import gallery from "../components/gallery"
+import watch from "../components/watch"
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(Notifications)
+Vue.use(VueVideoPlayer)
 
 const router = new VueRouter({
   mode: 'history',
@@ -51,6 +55,11 @@ const router = new VueRouter({
       path: '/timelapse',
       name: 'timelapse',
       component: timelapse,
+    },
+    {
+      path: '/watch/:id',
+      name: 'watch',
+      component: watch,
     }
   ],
 });
