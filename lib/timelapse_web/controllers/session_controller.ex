@@ -21,7 +21,7 @@ defmodule TimelapseWeb.SessionController do
         conn
         |> Timelapse.Auth.login(user)
         |> put_flash(:info, "Welcome back!")
-        |> redirect(to: timelapse_path(conn, :index))
+        |> redirect(to: "/timelapse")
 
       {:error, _reason} ->
         conn

@@ -9,6 +9,10 @@ defmodule TimelapseWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :csrf do
+    plug :protect_from_forgery
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -31,10 +35,13 @@ defmodule TimelapseWeb.Router do
   scope "/", TimelapseWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
-    resources "/timelapse", TimelapseController
-    resources "/sessions", SessionController, only: [:delete]
-    resources "/videos", VideoController
-    get "/watch/:id", WatchController, :show
+    post "/timelapse", TimelapseController, :create
+    get "/gallery/json", VideoController, :get_videos
+    get "/timelapse", RooterController, :main
+    get "/watch/:id", RooterController, :main
+    get "/watch/single/:id", WatchController, :show
+    get "/gallery", RooterController, :main
+    get "/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.

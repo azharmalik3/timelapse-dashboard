@@ -5,7 +5,6 @@ defmodule TimelapseWeb.VideoController do
   alias Timelapse.Videos.Video
 
   import Timelapse.Auth, only: [load_current_user: 2]
-  @region Application.get_env(:ex_aws, :region)
 
   plug(:load_current_user)
   plug(:authorize_video when action in [:edit, :update, :delete])
@@ -14,52 +13,25 @@ defmodule TimelapseWeb.VideoController do
     apply(__MODULE__, action_name(conn), [conn, conn.params, conn.assigns.current_user])
   end
 
-  def index(conn, _params, _user) do
-    videos = Videos.list_videos()
-    render(conn, "index.html", videos: videos)
-  end
+  def get_videos(conn, _params, _user) do
+    logs =
+      Videos.list_videos()
+      |> Enum.map(fn(videos) ->
+        id = videos.id
+        url = videos.url
+        title = videos.title
 
-  @doc """
-  def get_presigned_url_to_object(path) do
-    ExAws.Config.new(:s3)
-    |> ExAws.S3.presigned_url(:get, "timelapse-server", path)
-  end
-
-  def play(conn, %{"id" => exid, "archive_id" => archive_id}) do
-    current_user = conn.assigns[:current_user]
-    camera = Camera.get_full(exid)
-
-    with :ok <- ensure_can_list(current_user, camera, conn) do
-      {:ok, url} = get_presigned_url_to_object('camera_id.mp4')
-      conn
-      |> redirect(external: url)
-    end
-  end
-
-  def load(camera_exid, timestamp) do
-    file_path = convert_timestamp_to_path(timestamp)
-    'camera_exid/snapshots/file_path'
-    |> do_load
-  end
-
-  def do_load(path) do
-    case ExAws.S3.get_object("evercam-camera-assets", path) |> ExAws.request do
-      {:ok, response} -> {:ok, response.body}
-      {:error, {:http_error, code, response}} ->
-        message = EvercamMedia.XMLParser.parse_single(response.body, '/Error/Message')
-        {:error, code, message}
-    end
-  end
-  """
-
-  def new(conn, _params, user) do
-    changeset = Videos.change_video(%Video{}, %{}, user)
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def show(conn, %{"id" => id}, _user) do
-    video = Videos.get_video!(id)
-    render(conn, "show.html", video: video)
+        %{
+          "id" => id,
+          "url" => url,
+          "title" => title
+        }
+      end)
+    conn
+    |> put_status(:created)
+    |> json(%{
+        "logs": logs
+      })
   end
 
   def edit(conn, %{"id" => id}, _user) do

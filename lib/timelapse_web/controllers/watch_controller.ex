@@ -13,7 +13,18 @@ defmodule TimelapseWeb.WatchController do
     video = Videos.get_video!(id)
     {:ok, url} = get_presigned_url_to_object(video.url)
     video = Map.put(video, :url, url)
-    render(conn, "show.html", video: video)
+    IO.inspect video
+    id = video.id
+    url = video.url
+    title = video.title
+
+    conn
+    |> put_status(200)
+    |> json(%{
+      "id" => id,
+      "url" => url,
+      "title" => title
+    })
   end
 
   def get_presigned_url_to_object(path) do

@@ -9,7 +9,7 @@ defmodule TimelapseWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :timelapse, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.png robots.txt assets/statics)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

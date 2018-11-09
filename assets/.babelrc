@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["target", {
+      "presets": ["env"],
+      "targets": [
+        {"name": "ios", "version": 7}
+      ]
+    }]
+  ],
+    "plugins": [
+        "syntax-dynamic-import"
+    ]
+}

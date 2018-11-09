@@ -16,9 +16,11 @@ defmodule TimelapseWeb.TimelapseController do
 
   def create(conn, video_params) do
     caller = conn.assigns[:current_user]
+    IO.inspect video_params
     if upload = video_params["watermark_logo"] do
       extension = Path.extname(upload.filename)
       File.cp!(upload.path, "media/logo#{extension}")
+      IO.puts "dentro"
     end
     case File.read("media/logo.png") do
       {:ok, res} ->
@@ -34,20 +36,25 @@ defmodule TimelapseWeb.TimelapseController do
             case Videos.create_video(params, caller) do
               {:ok, video} ->
                 conn
-                |> put_flash(:info, "Video created successfully.")
+                |> put_status(:created)
                 |> redirect(to: video_path(conn, :show, video))
               {:error, %Ecto.Changeset{} = changeset} ->
                 conn
                 |> put_flash(:error, "Video not created.")
-                |> redirect(to: timelapse_path(conn, :index))
+                |> redirect(to: "/timelapse")
             end
           {:error, %Ecto.Changeset{} = changeset} ->
             conn
             |> put_flash(:error, "Video not created.")
-            |> redirect(to: timelapse_path(conn, :index))
+            |> redirect(to: "/timelapse")
         end
       {:error, error} ->
-        Logger.info "[call] [#{inspect error}]"
+        conn
+        |> put_status(402)
+        |> json(%{
+          "name" => "name",
+          "username" => "username"
+        })
     end
   end
 

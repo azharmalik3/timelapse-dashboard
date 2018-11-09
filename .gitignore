@@ -1,4 +1,5 @@
-/node_modules
+npm-debug.log
+/assets/node_modules
 /.elixir_ls
 /_build
 /cover
@@ -10,5 +11,6 @@ erl_crash.dump
 *.beam
 /config/*.secret.exs
 .env
+.idea
 tmp
 storage
